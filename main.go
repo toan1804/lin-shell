@@ -8,12 +8,17 @@ import (
     "os/exec"
     "strings"
     "os/user"
+
+    "github.com/mattn/go-colorable"
 )
 
 
 func main() {
     var username string
     var prefixPath string
+
+    // create a new colorable writer for stdout
+	// writer := colorable.NewColorableStdout()
 
     reader := bufio.NewReader(os.Stdin)
     user, err := user.Current()
@@ -32,9 +37,11 @@ func main() {
         } else {
             prefixPath = pwd
         }
+
+        fmt.Fprintf(colorable.NewColorableStdout(), blueItalicPattern + redPattern + yellowItalicPattern + redPattern + magentaPattern , username, "@", prefixPath, "|", "⇒ ")
         
-        fmt.Printf(blueItalicPattern + redPattern + yellowItalicPattern + redPattern + magentaPattern ,
-                   username, "@", prefixPath, "|", "⇒ ")
+        // fmt.Printf(blueItalicPattern + redPattern + yellowItalicPattern + redPattern + magentaPattern ,
+        //            username, "@", prefixPath, "|", "⇒ ")
         // Read the keyboad input.
         input, err := reader.ReadString('\n')
         if err != nil {
