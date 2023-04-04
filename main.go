@@ -38,7 +38,9 @@ func main() {
             prefixPath = pwd
         }
 
-        fmt.Fprintf(colorable.NewColorableStdout(), blueItalicPattern + redPattern + yellowItalicPattern + redPattern + magentaPattern , username, "@", prefixPath, "|", "⇒ ")
+        fmt.Fprintf(colorable.NewColorableStdout(),
+                    blueItalicPattern + redPattern + yellowItalicPattern + redPattern + magentaPattern,
+                    username, "@", prefixPath, "|", "⇒ ")
         
         // fmt.Printf(blueItalicPattern + redPattern + yellowItalicPattern + redPattern + magentaPattern ,
         //            username, "@", prefixPath, "|", "⇒ ")
@@ -63,8 +65,9 @@ var ErrMuchArguments = errors.New("too many arguments")
 
 // implementation the ANSI escape code for clearing the screen
 func clearScreen() {
-    fmt.Print("\033[2J")  // Clear entire screen
-    fmt.Print("\033[H")   // Move cursor to top-left corner
+    // fmt.Fprintf(colorable.NewColorableStdout(), "\033[2J")  // Clear entire screen without scrollback buffer
+    fmt.Fprintf(colorable.NewColorableStdout(), "\033[2J\033[3J\033[1;1H")  // Clear entire screen and scrollback buffer
+    // fmt.Fprintf(colorable.NewColorableStdout(), "\033[H")   // Move cursor to top-left corner
 }
 
 // "source" function
